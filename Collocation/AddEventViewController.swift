@@ -53,10 +53,6 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
     
     func radiusChanged(notification: NSNotification) {
         if let slider = notification.object as? UISlider {
-            println(slider.value)
-            let mapRect = MKMapRect(origin: MKMapPoint(x: 0, y: 0), size: MKMapSize(width: Double(mapView.frame.size.width), height: Double(mapView.frame.size.height)))
-            //renderer.setNeedsDisplayInMapRect(MKMapRectWorld)
-            
             mapView.removeOverlay(circleOverlay)
             circleOverlay = MKCircle(centerCoordinate: coordinate, radius: CLLocationDistance(radius()))
             self.mapView.addOverlay(circleOverlay)
