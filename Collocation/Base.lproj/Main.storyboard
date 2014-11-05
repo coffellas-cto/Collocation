@@ -31,12 +31,7 @@
                     <tabBarItem key="tabBarItem" title="Map" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="mapView" destination="me2-LD-J2F" id="ast-bj-8eI"/>
-                        <segue destination="IBT-2C-ej6" kind="popoverPresentation" identifier="SHOW_ADD_EVENT_VC" popoverAnchorView="me2-LD-J2F" id="5Xz-8C-KbW">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                            <popoverPassthroughViews>
-                                <mapView reference="me2-LD-J2F"/>
-                            </popoverPassthroughViews>
-                        </segue>
+                        <segue destination="IBT-2C-ej6" kind="presentation" identifier="SHOW_ADD_EVENT_VC" id="5Xz-8C-KbW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -96,10 +91,10 @@
             </objects>
             <point key="canvasLocation" x="1394" y="-320"/>
         </scene>
-        <!--Second-->
+        <!--Reminders-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="Collocation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="RemindersViewController" customModule="Collocation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -107,9 +102,24 @@
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KJy-yv-VkJ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="KJy-yv-VkJ" secondAttribute="trailing" id="9z2-nV-UMa"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="KJy-yv-VkJ" secondAttribute="bottom" id="Uze-9h-Jbp"/>
+                            <constraint firstItem="KJy-yv-VkJ" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="are-iJ-HRP"/>
+                            <constraint firstItem="KJy-yv-VkJ" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="n2f-Wo-GMY"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Reminders" image="second" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="tableView" destination="KJy-yv-VkJ" id="h7B-JR-3DI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>

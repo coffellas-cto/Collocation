@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		9A195A371A0834D600F1D6FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A195A361A0834D600F1D6FE /* AppDelegate.swift */; };
 		9A195A391A0834D600F1D6FE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A195A381A0834D600F1D6FE /* MapViewController.swift */; };
-		9A195A3B1A0834D600F1D6FE /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A195A3A1A0834D600F1D6FE /* SecondViewController.swift */; };
+		9A195A3B1A0834D600F1D6FE /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A195A3A1A0834D600F1D6FE /* RemindersViewController.swift */; };
 		9A195A3E1A0834D600F1D6FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A195A3C1A0834D600F1D6FE /* Main.storyboard */; };
 		9A195A401A0834D600F1D6FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A195A3F1A0834D600F1D6FE /* Images.xcassets */; };
 		9A195A431A0834D600F1D6FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A195A411A0834D600F1D6FE /* LaunchScreen.xib */; };
@@ -27,6 +27,9 @@
 		9A4119AE1A09BE6A00AB1C83 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4119AD1A09BE6A00AB1C83 /* Reminder.swift */; };
 		9A788D6B1A0838C70014A8B8 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A788D6A1A0838C70014A8B8 /* Annotation.swift */; };
 		9A788D6D1A083F170014A8B8 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A788D6C1A083F170014A8B8 /* AddEventViewController.swift */; };
+		9A990FB01A0AA1E700C8ACFB /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A990FAE1A0AA1E700C8ACFB /* ReminderCell.swift */; };
+		9A990FB11A0AA1E700C8ACFB /* ReminderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A990FAF1A0AA1E700C8ACFB /* ReminderCell.xib */; };
+		9A990FB41A0AA38F00C8ACFB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A990FB31A0AA38F00C8ACFB /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +47,7 @@
 		9A195A351A0834D600F1D6FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A195A361A0834D600F1D6FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A195A381A0834D600F1D6FE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		9A195A3A1A0834D600F1D6FE /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		9A195A3A1A0834D600F1D6FE /* RemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
 		9A195A3D1A0834D600F1D6FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9A195A3F1A0834D600F1D6FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9A195A421A0834D600F1D6FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -64,6 +67,10 @@
 		9A4119AD1A09BE6A00AB1C83 /* Reminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		9A788D6A1A0838C70014A8B8 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		9A788D6C1A083F170014A8B8 /* AddEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
+		9A990FAE1A0AA1E700C8ACFB /* ReminderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
+		9A990FAF1A0AA1E700C8ACFB /* ReminderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReminderCell.xib; sourceTree = "<group>"; };
+		9A990FB21A0AA36600C8ACFB /* Collocation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Collocation.entitlements; sourceTree = "<group>"; };
+		9A990FB31A0AA38F00C8ACFB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A195A591A08354800F1D6FE /* MapKit.framework in Frameworks */,
+				9A990FB41A0AA38F00C8ACFB /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +96,7 @@
 		9A195A281A0834D600F1D6FE = {
 			isa = PBXGroup;
 			children = (
+				9A990FB31A0AA38F00C8ACFB /* CloudKit.framework */,
 				9A195A331A0834D600F1D6FE /* Collocation */,
 				9A195A4B1A0834D600F1D6FE /* CollocationTests */,
 				9A195A321A0834D600F1D6FE /* Products */,
@@ -106,6 +115,7 @@
 		9A195A331A0834D600F1D6FE /* Collocation */ = {
 			isa = PBXGroup;
 			children = (
+				9A990FB21A0AA36600C8ACFB /* Collocation.entitlements */,
 				9A195A361A0834D600F1D6FE /* AppDelegate.swift */,
 				9A41199E1A09A03800AB1C83 /* Views */,
 				9A788D681A0838A10014A8B8 /* ViewControllers */,
@@ -164,6 +174,8 @@
 				9A4119A41A09A1FE00AB1C83 /* EventNameCell.xib */,
 				9A4119A91A09A63100AB1C83 /* NewEventFooterView.swift */,
 				9A4119A71A09A60000AB1C83 /* NewEventFooterView.xib */,
+				9A990FAE1A0AA1E700C8ACFB /* ReminderCell.swift */,
+				9A990FAF1A0AA1E700C8ACFB /* ReminderCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -173,7 +185,7 @@
 			children = (
 				9A788D6C1A083F170014A8B8 /* AddEventViewController.swift */,
 				9A195A381A0834D600F1D6FE /* MapViewController.swift */,
-				9A195A3A1A0834D600F1D6FE /* SecondViewController.swift */,
+				9A195A3A1A0834D600F1D6FE /* RemindersViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -236,8 +248,12 @@
 				TargetAttributes = {
 					9A195A301A0834D600F1D6FE = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = YZ8JMQWB5F;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 1;
 							};
 						};
@@ -274,6 +290,7 @@
 			files = (
 				9A195A3E1A0834D600F1D6FE /* Main.storyboard in Resources */,
 				9A4119A61A09A1FE00AB1C83 /* EventNameCell.xib in Resources */,
+				9A990FB11A0AA1E700C8ACFB /* ReminderCell.xib in Resources */,
 				9A195A431A0834D600F1D6FE /* LaunchScreen.xib in Resources */,
 				9A195A401A0834D600F1D6FE /* Images.xcassets in Resources */,
 				9A4119A21A09A09300AB1C83 /* RadiusCell.xib in Resources */,
@@ -295,7 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A195A3B1A0834D600F1D6FE /* SecondViewController.swift in Sources */,
+				9A195A3B1A0834D600F1D6FE /* RemindersViewController.swift in Sources */,
 				9A4119AC1A09AF2A00AB1C83 /* Constants.swift in Sources */,
 				9A4119A51A09A1FE00AB1C83 /* EventNameCell.swift in Sources */,
 				9A4119AE1A09BE6A00AB1C83 /* Reminder.swift in Sources */,
@@ -306,6 +323,7 @@
 				9A788D6B1A0838C70014A8B8 /* Annotation.swift in Sources */,
 				9A41199C1A0995AB00AB1C83 /* CoreDataManager.swift in Sources */,
 				9A195A391A0834D600F1D6FE /* MapViewController.swift in Sources */,
+				9A990FB01A0AA1E700C8ACFB /* ReminderCell.swift in Sources */,
 				9A4119AA1A09A63100AB1C83 /* NewEventFooterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,9 +449,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Collocation/Collocation.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Collocation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -441,9 +463,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Collocation/Collocation.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Collocation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

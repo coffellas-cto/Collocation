@@ -89,6 +89,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == kSegueIDAddEvent {
             if let toVC = segue.destinationViewController as? AddEventViewController {
+                toVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+                toVC.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+                toVC.modalInPopover = true
                 toVC.coordinate = selectedCoordinate
             }
         }
