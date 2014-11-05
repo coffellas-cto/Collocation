@@ -11,19 +11,26 @@ import MapKit
 
 let kRadiusCellID = "RADIUS_CELL"
 let kEventNameCellID = "EVENT_NAME_CELL"
-class AddEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate {
     
     var coordinate: CLLocationCoordinate2D!
     
     let kDefaultHeaderMapYOffset: CGFloat = -32
     var headerImageYOffset: CGFloat = -32
     var oldScrollViewY: CGFloat = 0
+    private var circleOverlay: MKCircle!
     
     // MARK: Outlets & Actions
     weak var mapView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func cancelPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: Private Methods
+    
+    private func radius() -> Float {
+        return (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as RadiusCell!).slider.value
     }
     
     // MARK: Public Methods
@@ -34,7 +41,7 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         let newReminder = CoreDataManager.manager.newObjectForEntityClass(Reminder) as Reminder
         newReminder.latitude = coordinate.latitude
         newReminder.longitude = coordinate.longitude
-        newReminder.radius = (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as RadiusCell!).slider.value
+        newReminder.radius = radius()
         newReminder.name = (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as EventNameCell!).textField.text
         newReminder.date = NSDate()
         
@@ -42,6 +49,18 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationCollocationReminderAdded, object: nil)
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func radiusChanged(notification: NSNotification) {
+        if let slider = notification.object as? UISlider {
+            println(slider.value)
+            let mapRect = MKMapRect(origin: MKMapPoint(x: 0, y: 0), size: MKMapSize(width: Double(mapView.frame.size.width), height: Double(mapView.frame.size.height)))
+            //renderer.setNeedsDisplayInMapRect(MKMapRectWorld)
+            
+            mapView.removeOverlay(circleOverlay)
+            circleOverlay = MKCircle(centerCoordinate: coordinate, radius: CLLocationDistance(radius()))
+            self.mapView.addOverlay(circleOverlay)
+        }
     }
     
     // MARK: UITableView Delegates Methods
@@ -74,6 +93,13 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         return tableView.frame.height - 100 * 2 - tableView.tableHeaderView!.frame.height
     }
     
+    // MARK: MKMapView Delegate Methods
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        let renderer = MKCircleRenderer(overlay: overlay)
+        renderer.fillColor = UIColor.redColor().colorWithAlphaComponent(0.20)
+        
+        return renderer
+    }
     
     // MARK: UIScrollView Delegate Methods
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -97,10 +123,12 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addReminderTapped", name: kNotificationCollocationAddReminder, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "radiusChanged:", name: kNotificationCollocationRadiusChanged, object: nil)
         
         mapView = MKMapView(frame: CGRect(x: 0, y: headerImageYOffset, width: self.view.frame.width, height: self.view.frame.height / 2.5 + 15))
         mapView.contentMode = .ScaleAspectFill
         mapView.autoresizingMask = .FlexibleWidth
+        mapView.delegate = self
         self.view.insertSubview(mapView, belowSubview: tableView)
                 
         tableView.delegate = self
@@ -110,6 +138,15 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: mapView.frame.width, height: mapView.frame.height + kDefaultHeaderMapYOffset * 2))
         tableView.registerNib(UINib(nibName: "RadiusCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: kRadiusCellID)
         tableView.registerNib(UINib(nibName: "EventNameCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: kEventNameCellID)
+        
+        let region = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000)
+        mapView.setRegion(region, animated: false)
+        
+        let annotation = Annotation(coordinate: coordinate)
+        mapView.addAnnotation(annotation)
+        
+        circleOverlay = MKCircle(centerCoordinate: coordinate, radius: CLLocationDistance(1))
+        self.mapView.addOverlay(circleOverlay)
     }
 
     override func didReceiveMemoryWarning() {
@@ -119,7 +156,6 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
     
     override func viewDidAppear(animated: Bool) {

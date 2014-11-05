@@ -15,6 +15,7 @@ class RadiusCell: UITableViewCell {
         
     func sliderValueChanged() {
         radiusLabel.text = NSString(format: "%.01f m", slider.value)
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationCollocationRadiusChanged, object: slider)
     }
 
     override func awakeFromNib() {
