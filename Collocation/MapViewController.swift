@@ -33,15 +33,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(kAnnotationReuseID) as MKPinAnnotationView?
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: kAnnotationReuseID)
-            annotationView?.rightCalloutAccessoryView = UIButton.buttonWithType(.ContactAdd) as UIView
+            if let annotation = annotation as? Annotation {
+                annotationView?.rightCalloutAccessoryView = UIButton.buttonWithType(annotation.isReminder ? .InfoLight : .ContactAdd) as UIView
+            }
             annotationView?.canShowCallout = true
         }
         return annotationView
     }
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
-        selectedCoordinate = view.annotation.coordinate
-        self.performSegueWithIdentifier(kSegueIDAddEvent, sender: self)
+        if let annotation = view.annotation as? Annotation {
+            if !annotation.isReminder {
+                selectedCoordinate = view.annotation.coordinate
+                self.performSegueWithIdentifier(kSegueIDAddEvent, sender: self)
+            }
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -62,6 +68,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: "longPressFired:")
         longPressGesture.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressGesture)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let remindersArray = CoreDataManager.manager.fetchObjectsWithEntityClass(Reminder) as [Reminder]
+        var annotationsArray = [Annotation]()
+        for reminder in remindersArray {
+            let annotation = Annotation(coordinate: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue))
+            annotation.title = reminder.name
+            annotation.isReminder = true
+            annotationsArray.append(annotation)
+        }
+        
+        mapView.addAnnotations(annotationsArray)
     }
 
     override func didReceiveMemoryWarning() {
