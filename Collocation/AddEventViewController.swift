@@ -40,6 +40,7 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         
         CoreDataManager.manager.saveContext()
         
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationCollocationReminderAdded, object: nil)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

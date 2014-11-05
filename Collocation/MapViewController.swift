@@ -16,16 +16,50 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    private var lastAnnotation: Annotation!
+    
     var selectedCoordinate: CLLocationCoordinate2D!
     
     // MARK: Public Methods
     func longPressFired(gesture: UILongPressGestureRecognizer) {
         if gesture.state == .Began {
+            
+            if lastAnnotation != nil {
+                mapView.removeAnnotations([lastAnnotation])
+            }
+            
             let coordinate = mapView.convertPoint(gesture.locationInView(mapView), toCoordinateFromView: mapView)
             let annotation = Annotation(coordinate: coordinate)
             annotation.title = "Add reminder"
             mapView.addAnnotation(annotation)
+            lastAnnotation = annotation
         }
+    }
+    
+    func addReminderTapped() {
+        if lastAnnotation != nil {
+            mapView.removeAnnotations([lastAnnotation])
+            lastAnnotation = nil
+        }
+        
+        reloadMapView()
+    }
+    
+    // MARK: Private Methods
+    private func reloadMapView() {
+        
+        mapView.removeAnnotations(mapView.annotations)
+        
+        let remindersArray = CoreDataManager.manager.fetchObjectsWithEntityClass(Reminder) as [Reminder]
+        var annotationsArray = [Annotation]()
+        for reminder in remindersArray {
+            let annotation = Annotation(coordinate: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue))
+            annotation.title = reminder.name
+            annotation.isReminder = true
+            annotationsArray.append(annotation)
+        }
+        
+        mapView.addAnnotations(annotationsArray)
     }
     
     // MARK: MKMapViewDelegate Methods
@@ -33,11 +67,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(kAnnotationReuseID) as MKPinAnnotationView?
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: kAnnotationReuseID)
-            if let annotation = annotation as? Annotation {
-                annotationView?.rightCalloutAccessoryView = UIButton.buttonWithType(annotation.isReminder ? .InfoLight : .ContactAdd) as UIView
-            }
             annotationView?.canShowCallout = true
         }
+        
+        if let annotation = annotation as? Annotation {
+            annotationView?.rightCalloutAccessoryView = UIButton.buttonWithType(annotation.isReminder ? .InfoLight : .ContactAdd) as UIView
+        }
+        
         return annotationView
     }
     
@@ -61,35 +97,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "addReminderTapped", name: kNotificationCollocationReminderAdded, object: nil)
         
         mapView.delegate = self
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: "longPressFired:")
         longPressGesture.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressGesture)
+        
+        reloadMapView()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let remindersArray = CoreDataManager.manager.fetchObjectsWithEntityClass(Reminder) as [Reminder]
-        var annotationsArray = [Annotation]()
-        for reminder in remindersArray {
-            let annotation = Annotation(coordinate: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue))
-            annotation.title = reminder.name
-            annotation.isReminder = true
-            annotationsArray.append(annotation)
-        }
-        
-        mapView.addAnnotations(annotationsArray)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }
 
