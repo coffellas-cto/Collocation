@@ -15,6 +15,16 @@
 		9A195A431A0834D600F1D6FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A195A411A0834D600F1D6FE /* LaunchScreen.xib */; };
 		9A195A4F1A0834D600F1D6FE /* CollocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A195A4E1A0834D600F1D6FE /* CollocationTests.swift */; };
 		9A195A591A08354800F1D6FE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A195A581A08354800F1D6FE /* MapKit.framework */; };
+		9A41199A1A0994FB00AB1C83 /* Collocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A4119981A0994FB00AB1C83 /* Collocation.xcdatamodeld */; };
+		9A41199C1A0995AB00AB1C83 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41199B1A0995AB00AB1C83 /* CoreDataManager.swift */; };
+		9A4119A11A09A09300AB1C83 /* RadiusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41199F1A09A09300AB1C83 /* RadiusCell.swift */; };
+		9A4119A21A09A09300AB1C83 /* RadiusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4119A01A09A09300AB1C83 /* RadiusCell.xib */; };
+		9A4119A51A09A1FE00AB1C83 /* EventNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4119A31A09A1FE00AB1C83 /* EventNameCell.swift */; };
+		9A4119A61A09A1FE00AB1C83 /* EventNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4119A41A09A1FE00AB1C83 /* EventNameCell.xib */; };
+		9A4119A81A09A60000AB1C83 /* NewEventFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4119A71A09A60000AB1C83 /* NewEventFooterView.xib */; };
+		9A4119AA1A09A63100AB1C83 /* NewEventFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4119A91A09A63100AB1C83 /* NewEventFooterView.swift */; };
+		9A4119AC1A09AF2A00AB1C83 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4119AB1A09AF2A00AB1C83 /* Constants.swift */; };
+		9A4119AE1A09BE6A00AB1C83 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4119AD1A09BE6A00AB1C83 /* Reminder.swift */; };
 		9A788D6B1A0838C70014A8B8 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A788D6A1A0838C70014A8B8 /* Annotation.swift */; };
 		9A788D6D1A083F170014A8B8 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A788D6C1A083F170014A8B8 /* AddEventViewController.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +52,16 @@
 		9A195A4D1A0834D600F1D6FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A195A4E1A0834D600F1D6FE /* CollocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollocationTests.swift; sourceTree = "<group>"; };
 		9A195A581A08354800F1D6FE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9A4119991A0994FB00AB1C83 /* Collocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Collocation.xcdatamodel; sourceTree = "<group>"; };
+		9A41199B1A0995AB00AB1C83 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		9A41199F1A09A09300AB1C83 /* RadiusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusCell.swift; sourceTree = "<group>"; };
+		9A4119A01A09A09300AB1C83 /* RadiusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadiusCell.xib; sourceTree = "<group>"; };
+		9A4119A31A09A1FE00AB1C83 /* EventNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNameCell.swift; sourceTree = "<group>"; };
+		9A4119A41A09A1FE00AB1C83 /* EventNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventNameCell.xib; sourceTree = "<group>"; };
+		9A4119A71A09A60000AB1C83 /* NewEventFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewEventFooterView.xib; sourceTree = "<group>"; };
+		9A4119A91A09A63100AB1C83 /* NewEventFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEventFooterView.swift; sourceTree = "<group>"; };
+		9A4119AB1A09AF2A00AB1C83 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9A4119AD1A09BE6A00AB1C83 /* Reminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		9A788D6A1A0838C70014A8B8 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		9A788D6C1A083F170014A8B8 /* AddEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,12 +107,15 @@
 			isa = PBXGroup;
 			children = (
 				9A195A361A0834D600F1D6FE /* AppDelegate.swift */,
+				9A41199E1A09A03800AB1C83 /* Views */,
 				9A788D681A0838A10014A8B8 /* ViewControllers */,
 				9A788D691A0838A90014A8B8 /* Models */,
+				9A41199D1A0995B200AB1C83 /* Controllers */,
 				9A195A3C1A0834D600F1D6FE /* Main.storyboard */,
 				9A195A3F1A0834D600F1D6FE /* Images.xcassets */,
 				9A195A411A0834D600F1D6FE /* LaunchScreen.xib */,
 				9A195A341A0834D600F1D6FE /* Supporting Files */,
+				9A4119981A0994FB00AB1C83 /* Collocation.xcdatamodeld */,
 			);
 			path = Collocation;
 			sourceTree = "<group>";
@@ -102,6 +125,7 @@
 			children = (
 				9A195A581A08354800F1D6FE /* MapKit.framework */,
 				9A195A351A0834D600F1D6FE /* Info.plist */,
+				9A4119AB1A09AF2A00AB1C83 /* Constants.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -123,6 +147,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9A41199D1A0995B200AB1C83 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9A41199B1A0995AB00AB1C83 /* CoreDataManager.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		9A41199E1A09A03800AB1C83 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9A41199F1A09A09300AB1C83 /* RadiusCell.swift */,
+				9A4119A01A09A09300AB1C83 /* RadiusCell.xib */,
+				9A4119A31A09A1FE00AB1C83 /* EventNameCell.swift */,
+				9A4119A41A09A1FE00AB1C83 /* EventNameCell.xib */,
+				9A4119A91A09A63100AB1C83 /* NewEventFooterView.swift */,
+				9A4119A71A09A60000AB1C83 /* NewEventFooterView.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		9A788D681A0838A10014A8B8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				9A788D6A1A0838C70014A8B8 /* Annotation.swift */,
+				9A4119AD1A09BE6A00AB1C83 /* Reminder.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -227,8 +273,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A195A3E1A0834D600F1D6FE /* Main.storyboard in Resources */,
+				9A4119A61A09A1FE00AB1C83 /* EventNameCell.xib in Resources */,
 				9A195A431A0834D600F1D6FE /* LaunchScreen.xib in Resources */,
 				9A195A401A0834D600F1D6FE /* Images.xcassets in Resources */,
+				9A4119A21A09A09300AB1C83 /* RadiusCell.xib in Resources */,
+				9A4119A81A09A60000AB1C83 /* NewEventFooterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,10 +296,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A195A3B1A0834D600F1D6FE /* SecondViewController.swift in Sources */,
+				9A4119AC1A09AF2A00AB1C83 /* Constants.swift in Sources */,
+				9A4119A51A09A1FE00AB1C83 /* EventNameCell.swift in Sources */,
+				9A4119AE1A09BE6A00AB1C83 /* Reminder.swift in Sources */,
+				9A41199A1A0994FB00AB1C83 /* Collocation.xcdatamodeld in Sources */,
 				9A788D6D1A083F170014A8B8 /* AddEventViewController.swift in Sources */,
+				9A4119A11A09A09300AB1C83 /* RadiusCell.swift in Sources */,
 				9A195A371A0834D600F1D6FE /* AppDelegate.swift in Sources */,
 				9A788D6B1A0838C70014A8B8 /* Annotation.swift in Sources */,
+				9A41199C1A0995AB00AB1C83 /* CoreDataManager.swift in Sources */,
 				9A195A391A0834D600F1D6FE /* MapViewController.swift in Sources */,
+				9A4119AA1A09A63100AB1C83 /* NewEventFooterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +512,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9A4119981A0994FB00AB1C83 /* Collocation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9A4119991A0994FB00AB1C83 /* Collocation.xcdatamodel */,
+			);
+			currentVersion = 9A4119991A0994FB00AB1C83 /* Collocation.xcdatamodel */;
+			path = Collocation.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9A195A291A0834D600F1D6FE /* Project object */;
 }

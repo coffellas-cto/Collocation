@@ -55,13 +55,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="nnk-0X-vWa">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tableView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gcw-oa-GlY">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="fNA-gd-bjU"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Add Event" id="wYW-l4-wLs">
+                                    <navigationItem title="Add Reminder" id="wYW-l4-wLs">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="jpR-3X-wgV">
                                             <connections>
                                                 <action selector="cancelPressed:" destination="IBT-2C-ej6" id="xiw-cT-heS"/>
@@ -75,9 +81,16 @@
                         <constraints>
                             <constraint firstItem="Gcw-oa-GlY" firstAttribute="leading" secondItem="8Ze-at-ofb" secondAttribute="leading" id="CY7-JI-xxU"/>
                             <constraint firstItem="Gcw-oa-GlY" firstAttribute="top" secondItem="8Ze-at-ofb" secondAttribute="top" id="K6I-qC-Mri"/>
+                            <constraint firstAttribute="trailing" secondItem="nnk-0X-vWa" secondAttribute="trailing" id="Mq9-UK-YAT"/>
+                            <constraint firstAttribute="bottom" secondItem="nnk-0X-vWa" secondAttribute="bottom" id="YuN-qT-ZSc"/>
+                            <constraint firstItem="nnk-0X-vWa" firstAttribute="top" secondItem="Gcw-oa-GlY" secondAttribute="bottom" constant="-64" id="iYn-w0-KnD"/>
+                            <constraint firstItem="nnk-0X-vWa" firstAttribute="leading" secondItem="8Ze-at-ofb" secondAttribute="leading" id="l0e-qo-3hW"/>
                             <constraint firstAttribute="trailing" secondItem="Gcw-oa-GlY" secondAttribute="trailing" id="sGq-0M-t2I"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="nnk-0X-vWa" id="SRV-77-K8N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gMU-Qf-qK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

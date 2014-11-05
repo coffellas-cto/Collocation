@@ -23,7 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if gesture.state == .Began {
             let coordinate = mapView.convertPoint(gesture.locationInView(mapView), toCoordinateFromView: mapView)
             let annotation = Annotation(coordinate: coordinate)
-            annotation.title = "Add event"
+            annotation.title = "Add reminder"
             mapView.addAnnotation(annotation)
         }
     }
