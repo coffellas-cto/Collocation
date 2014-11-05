@@ -15,12 +15,12 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
     
     var coordinate: CLLocationCoordinate2D!
     
-    let kDefaultHeaderImageYOffset: CGFloat = -32
+    let kDefaultHeaderMapYOffset: CGFloat = -32
     var headerImageYOffset: CGFloat = -32
     var oldScrollViewY: CGFloat = 0
     
     // MARK: Outlets & Actions
-    weak var headerImageView: MKMapView!
+    weak var mapView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func cancelPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -80,15 +80,15 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         let scrollOffset = scrollView.contentOffset.y;
         if scrollOffset < 0 {
             // Adjust image proportionally
-            if -scrollOffset >= headerImageView.frame.height + kDefaultHeaderImageYOffset * 2 - 20 {
+            if -scrollOffset >= mapView.frame.height + kDefaultHeaderMapYOffset * 2 - 20 {
                 scrollView.setContentOffset(CGPointMake(scrollView.contentOffset.x, oldScrollViewY), animated: false)
                 return
             }
             
             oldScrollViewY = scrollOffset
-            headerImageView.frame.origin.y = headerImageYOffset - ((scrollOffset / 2));
+            mapView.frame.origin.y = headerImageYOffset - ((scrollOffset / 2));
         } else {
-            headerImageView.frame.origin.y = headerImageYOffset - scrollOffset;
+            mapView.frame.origin.y = headerImageYOffset - scrollOffset;
         }
     }
 
@@ -98,16 +98,16 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addReminderTapped", name: kNotificationCollocationAddReminder, object: nil)
         
-        headerImageView = MKMapView(frame: CGRect(x: 0, y: headerImageYOffset, width: self.view.frame.width, height: self.view.frame.height / 2.5 + 15))
-        headerImageView.contentMode = .ScaleAspectFill
-        headerImageView.autoresizingMask = .FlexibleWidth
-        self.view.insertSubview(headerImageView, belowSubview: tableView)
+        mapView = MKMapView(frame: CGRect(x: 0, y: headerImageYOffset, width: self.view.frame.width, height: self.view.frame.height / 2.5 + 15))
+        mapView.contentMode = .ScaleAspectFill
+        mapView.autoresizingMask = .FlexibleWidth
+        self.view.insertSubview(mapView, belowSubview: tableView)
                 
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: headerImageView.frame.width, height: headerImageView.frame.height + kDefaultHeaderImageYOffset * 2))
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: mapView.frame.width, height: mapView.frame.height + kDefaultHeaderMapYOffset * 2))
         tableView.registerNib(UINib(nibName: "RadiusCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: kRadiusCellID)
         tableView.registerNib(UINib(nibName: "EventNameCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: kEventNameCellID)
     }
@@ -115,6 +115,11 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     override func viewDidAppear(animated: Bool) {
