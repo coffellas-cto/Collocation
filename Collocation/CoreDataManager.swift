@@ -26,6 +26,17 @@ class CoreDataManager {
         return Struct.instance
     }
     
+    // MARK: Class Methods
+    
+    class func entityNameFromClass(entityClass: AnyClass) -> String? {
+        let retVal = NSStringFromClass(entityClass).componentsSeparatedByString(".").last
+        if retVal == nil {
+            println("Error. Couldn't get entity name from class \(NSStringFromClass(entityClass))")
+        }
+        
+        return retVal
+    }
+    
     // MARK: Public Methods
     
     /**
@@ -37,7 +48,7 @@ class CoreDataManager {
     */
     
     func newObjectForEntityClass(entityClass: AnyClass) -> AnyObject? {
-        let entityName = entityNameFromClass(entityClass)
+        let entityName = CoreDataManager.entityNameFromClass(entityClass)
         if entityName == nil {
             return nil
         }
@@ -56,7 +67,7 @@ class CoreDataManager {
     */
     
     func fetchObjectsWithEntityClass(entityClass: AnyClass, predicateFormat: String? = nil, _ argList: CVarArgType...) -> [AnyObject]? {
-        let entityName = entityNameFromClass(entityClass)
+        let entityName = CoreDataManager.entityNameFromClass(entityClass)
         if entityName == nil {
             return nil
         }
@@ -78,7 +89,7 @@ class CoreDataManager {
     }
     
     func countObjectsWithEntityClass(entityClass: AnyClass, predicateFormat: String? = nil, _ argList: CVarArgType...) -> Int {
-        let entityName = entityNameFromClass(entityClass)
+        let entityName = CoreDataManager.entityNameFromClass(entityClass)
         if entityName == nil {
             return 0
         }
@@ -116,16 +127,6 @@ class CoreDataManager {
             }
         }
     }
-
-    // MARK: Private Methods
-    private func entityNameFromClass(entityClass: AnyClass) -> String? {
-        let retVal = NSStringFromClass(entityClass).componentsSeparatedByString(".").last
-        if retVal == nil {
-            println("Error. Couldn't get entity name from class \(NSStringFromClass(entityClass))")
-        }
-        
-        return retVal
-    }
     
     // MARK: - Core Data stack
     
@@ -146,8 +147,9 @@ class CoreDataManager {
         println(url)
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        //let options =
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        let options =
+        [   NSPersistentStoreUbiquitousContentNameKey: kCollocationUbiquitousContentName, NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
+        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options, error: &error) == nil {
             coordinator = nil
             // Report any error we got.
             let dict = NSMutableDictionary()

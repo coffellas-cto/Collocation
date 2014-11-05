@@ -11,6 +11,9 @@ import UIKit
 class ReminderCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var radiusLabel: UILabel!
+    @IBOutlet weak var coordinateLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

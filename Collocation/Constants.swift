@@ -11,3 +11,5 @@ import Foundation
 let kNotificationCollocationAddReminder = "NotificationCollocationAddReminder"
 let kNotificationCollocationReminderAdded = "NotificationCollocationReminderAdded"
 let kNotificationCollocationRadiusChanged = "NotificationCollocationRadiusChanged"
+
+let kCollocationUbiquitousContentName = "CollocationUbiquitousContentName"
