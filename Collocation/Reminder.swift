@@ -17,5 +17,6 @@ class Reminder: NSManagedObject {
     @NSManaged var name: String
     @NSManaged var radius: NSNumber
     @NSManaged var enabled: NSNumber
+    @NSManaged var regionID: String
 
 }

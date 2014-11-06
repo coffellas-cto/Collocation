@@ -10,6 +10,7 @@ import Foundation
 
 let kNotificationCollocationAddReminder = "NotificationCollocationAddReminder"
 let kNotificationCollocationReminderAdded = "NotificationCollocationReminderAdded"
+let kNotificationCollocationReminderAddedRiminderKey = "NotificationCollocationReminderAddedRiminderKey"
 let kNotificationCollocationRadiusChanged = "NotificationCollocationRadiusChanged"
 let kNotificationCollocationReminderCellSwitchValueChanged = "NotificationCollocationReminderCellSwitchValueChanged"
 

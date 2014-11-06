@@ -12,18 +12,18 @@ import MapKit
 let kAnnotationReuseID = "ANNOTATION_ID"
 let kSegueIDAddEvent = "SHOW_ADD_EVENT_VC"
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
     private var lastAnnotation: Annotation!
-    
+    private let locationManager = CLLocationManager()
+
     var selectedCoordinate: CLLocationCoordinate2D!
     
     // MARK: Public Methods
     func longPressFired(gesture: UILongPressGestureRecognizer) {
         if gesture.state == .Began {
-            
             if lastAnnotation != nil {
                 mapView.removeAnnotations([lastAnnotation])
             }
@@ -36,7 +36,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func addReminderTapped() {
+    func reminderAdded(notificiation: NSNotification) {
+        println("Reminder added:")
+        if let reminder = notificiation.userInfo?[kNotificationCollocationReminderAddedRiminderKey] as? Reminder {
+            println("\(reminder.latitude); \(reminder.longitude)")
+            startMonitoringRegionsWithReminders([reminder])
+        }
+        
         if lastAnnotation != nil {
             mapView.removeAnnotations([lastAnnotation])
             lastAnnotation = nil
@@ -46,11 +52,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     // MARK: Private Methods
+    private func startMonitoringRegionsWithReminders(reminders: [Reminder]) {
+        for reminder in reminders {
+            var geoRegion = CLCircularRegion(center: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue), radius: reminder.radius.doubleValue, identifier: "\(reminder.regionID)")
+            self.locationManager.startMonitoringForRegion(geoRegion)
+        }
+        
+        //locationManager.startUpdatingLocation()
+    }
+    
     private func reloadMapView() {
         
         mapView.removeAnnotations(mapView.annotations)
         
         let remindersArray = CoreDataManager.manager.fetchObjectsWithEntityClass(Reminder) as [Reminder]
+        startMonitoringRegionsWithReminders(remindersArray)
         var annotationsArray = [Annotation]()
         for reminder in remindersArray {
             let annotation = Annotation(coordinate: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue))
@@ -64,6 +80,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: MKMapViewDelegate Methods
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        }
+        
         var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(kAnnotationReuseID) as MKPinAnnotationView?
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: kAnnotationReuseID)
@@ -96,18 +116,58 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+    // MARK: CLLocationManagerDelegate Methods
+    func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
+        println("Entered region: \(region.identifier)")
+        
+        if let reminder = CoreDataManager.manager.fetchObjectsWithEntityClass(Reminder.classForCoder(), predicateFormat: "regionID == %@", region.identifier)?.first as? Reminder {
+            println("Reminder: \(reminder.name)")
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+        println("Left region: \(region.identifier)")
+    }
+    
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch status {
+        case .Authorized:
+            //locationManager.startUpdatingLocation()
+            mapView.showsUserLocation = true
+        case .Denied, .Restricted:
+            UIAlertView(title: "Alert", message: "In order to get all features of application you must turn on location services for it.", delegate: nil, cancelButtonTitle: "OK").show()
+        default:
+            break
+        }
+        
+        println("didChangeAuthorizationStatus: \(status.rawValue)")
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        if let location = locations.last as? CLLocation {
+            println(location.coordinate.latitude)
+        }
+    }
 
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "addReminderTapped", name: kNotificationCollocationReminderAdded, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reminderAdded:", name: kNotificationCollocationReminderAdded, object: nil)
         
         mapView.delegate = self
+        locationManager.delegate = self
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: "longPressFired:")
         longPressGesture.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressGesture)
+        
+        if let status = CLLocationManager.authorizationStatus() as CLAuthorizationStatus? {
+            if status == .NotDetermined {
+                locationManager.requestAlwaysAuthorization()
+            }
+        }
         
         reloadMapView()
     }

@@ -37,17 +37,18 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
     
     func addReminderTapped() {
         
-        //let newReminder = CoreDataManager.manager.
         let newReminder = CoreDataManager.manager.newObjectForEntityClass(Reminder) as Reminder
         newReminder.latitude = coordinate.latitude
         newReminder.longitude = coordinate.longitude
         newReminder.radius = radius()
         newReminder.name = (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as EventNameCell!).textField.text
         newReminder.date = NSDate()
+        newReminder.regionID = NSUUID().UUIDString
         
         CoreDataManager.manager.saveContext()
         
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationCollocationReminderAdded, object: nil)
+        let notification = NSNotification(name: kNotificationCollocationReminderAdded, object: nil, userInfo: [kNotificationCollocationReminderAddedRiminderKey: newReminder])
+        NSNotificationCenter.defaultCenter().postNotification(notification)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
