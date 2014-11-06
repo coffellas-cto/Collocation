@@ -114,7 +114,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Reminders" id="vma-Fb-XX6">
-                                        <barButtonItem key="rightBarButtonItem" title="Edit" id="IMJ-iF-Xve"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Edit" id="IMJ-iF-Xve">
+                                            <connections>
+                                                <action selector="editModeTapped:" destination="8rJ-Kc-sve" id="ILZ-is-xTn"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

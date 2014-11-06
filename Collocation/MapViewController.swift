@@ -18,6 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     private var lastAnnotation: Annotation!
     private let locationManager = CLLocationManager()
+    private var mustReloadMapView = true
 
     var selectedCoordinate: CLLocationCoordinate2D!
     
@@ -56,6 +57,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         reloadMapView()
+    }
+    
+    func storageChanged() {
+        mustReloadMapView = true
     }
     
     // MARK: Private Methods
@@ -178,6 +183,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reminderAdded:", name: kNotificationCollocationReminderAdded, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "storageChanged", name: kNotificationCollocationStorageChanged, object: nil)
         
         mapView.delegate = self
         locationManager.delegate = self
@@ -191,12 +197,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 locationManager.requestAlwaysAuthorization()
             }
         }
-        
-        reloadMapView()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if mustReloadMapView {
+            reloadMapView()
+            mustReloadMapView = false
+        }
     }
 
     override func didReceiveMemoryWarning() {

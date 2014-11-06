@@ -13,6 +13,19 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func editModeTapped(sender: AnyObject) {
+        if let buttonItem = sender as? UIBarButtonItem {
+            if tableView.editing {
+                buttonItem.title = "Edit"
+            }
+            else {
+                buttonItem.title = "Done"
+            }
+            
+            tableView.setEditing(!tableView.editing, animated: true)
+        }
+    }
+    
     var fetchedResultsController: NSFetchedResultsController!
     
     // MARK: Public Methods
@@ -25,7 +38,6 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
                     CoreDataManager.manager.saveContext()
                 }
             }
-            
         }
     }
     
@@ -55,6 +67,20 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 76
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            if let reminder = fetchedResultsController.fetchedObjects?[indexPath.row] as? Reminder {
+                CoreDataManager.manager.deleteObject(reminder)
+                CoreDataManager.manager.saveContext()
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationCollocationStorageChanged, object: nil)
+            }
+        }
     }
     
     // MARK: NSFetchedResultsControllerDelegate Methods
