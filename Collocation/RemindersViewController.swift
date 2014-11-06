@@ -29,6 +29,12 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
         }
     }
     
+    func cloudChangesReceived(notification : NSNotification)
+    {
+        CoreDataManager.manager.managedObjectContext!.mergeChangesFromContextDidSaveNotification(notification)
+        CoreDataManager.manager.saveContext()
+    }
+    
     // MARK: UITableView Delegates Methods
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -38,8 +44,8 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
         cell.nameLabel.text = reminder.name
         cell.radiusLabel.text = NSString(format: "%.01f m", reminder.radius.floatValue)
         cell.coordinateLabel.text = NSString(format: "%.06f; %.06f", reminder.latitude.floatValue, reminder.longitude.floatValue)
-        
         cell.switchEnabled.on = reminder.enabled.boolValue
+        cell.containerView.alpha = cell.switchEnabled.on ? 1 : 0.3
         return cell
     }
     
@@ -84,6 +90,7 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchValueChanged:", name: kNotificationCollocationReminderCellSwitchValueChanged, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cloudChangesReceived:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: CoreDataManager.manager.persistentStoreCoordinator)
         
         tableView.delegate = self
         tableView.dataSource = self

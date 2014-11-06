@@ -15,10 +15,10 @@ class ReminderCell: UITableViewCell {
     @IBOutlet weak var radiusLabel: UILabel!
     @IBOutlet weak var coordinateLabel: UILabel!
     @IBOutlet weak var switchEnabled: UISwitch!
+    @IBOutlet weak var containerView: UIView!
     
     @IBAction func switchValueChanged(sender: AnyObject) {
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationCollocationReminderCellSwitchValueChanged, object: self)
-        
     }
     
     // MARK: Life Cycle
