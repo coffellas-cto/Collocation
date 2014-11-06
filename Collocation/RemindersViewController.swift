@@ -36,6 +36,7 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
                 if let reminder = fetchedResultsController.fetchedObjects?[indexPath.row] as? Reminder {
                     reminder.enabled = NSNumber(bool: cell.switchEnabled.on)
                     CoreDataManager.manager.saveContext()
+                    NSNotificationCenter.defaultCenter().postNotificationName(kNotificationCollocationStorageChanged, object: nil)
                 }
             }
         }

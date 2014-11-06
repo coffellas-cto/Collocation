@@ -56,7 +56,7 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         if let slider = notification.object as? UISlider {
             mapView.removeOverlay(circleOverlay)
             circleOverlay = MKCircle(centerCoordinate: coordinate, radius: CLLocationDistance(radius()))
-            self.mapView.addOverlay(circleOverlay)
+            mapView.addOverlay(circleOverlay)
         }
     }
     

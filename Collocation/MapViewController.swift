@@ -71,7 +71,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         for reminder in reminders {
-            var geoRegion = CLCircularRegion(center: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue), radius: reminder.radius.doubleValue, identifier: "\(reminder.regionID)")
+            var geoRegion = CLCircularRegion(center: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue), radius: CLLocationDistance(reminder.radius.doubleValue), identifier: "\(reminder.regionID)")
             self.locationManager.startMonitoringForRegion(geoRegion)
         }
     }
@@ -79,18 +79,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     private func reloadMapView() {
         
         mapView.removeAnnotations(mapView.annotations)
+        mapView.removeOverlays(mapView.overlays)
         
         let remindersArray = CoreDataManager.manager.fetchObjectsWithEntityClass(Reminder) as [Reminder]
         startMonitoringRegionsWithReminders(remindersArray)
         var annotationsArray = [Annotation]()
+        var overlaysArray = [MKCircle]()
         for reminder in remindersArray {
-            let annotation = Annotation(coordinate: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue))
+            let coordinate = CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue)
+            let annotation = Annotation(coordinate: coordinate)
             annotation.title = reminder.name
             annotation.isReminder = true
             annotationsArray.append(annotation)
+            
+            let circleOverlay = MKCircle(centerCoordinate: coordinate, radius: CLLocationDistance(reminder.radius.doubleValue))
+            circleOverlay.title = reminder.enabled.boolValue ? nil : "0"
+            overlaysArray.append(circleOverlay)
         }
         
         mapView.addAnnotations(annotationsArray)
+        mapView.addOverlays(overlaysArray)
     }
     
     // MARK: MKMapViewDelegate Methods
@@ -127,6 +135,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             mapView.setRegion(mapRegion, animated: true)
             zoomedOnFirstUserLocationUpdate = false
         }
+    }
+    
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        let renderer = MKCircleRenderer(overlay: overlay)
+        renderer.fillColor = overlay.title? == "0" ? UIColor.blackColor().colorWithAlphaComponent(0.05) : UIColor.redColor().colorWithAlphaComponent(0.2)
+        return renderer
     }
     
     // MARK: CLLocationManagerDelegate Methods
@@ -187,6 +201,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         mapView.delegate = self
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: "longPressFired:")
         longPressGesture.minimumPressDuration = 0.5
