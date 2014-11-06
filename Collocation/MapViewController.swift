@@ -19,6 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     private var lastAnnotation: Annotation!
     private let locationManager = CLLocationManager()
     private var mustReloadMapView = true
+    private var zoomedOnFirstUserLocationUpdate = false
 
     var selectedCoordinate: CLLocationCoordinate2D!
     
@@ -118,14 +119,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == kSegueIDAddEvent {
-            if let toVC = segue.destinationViewController as? AddEventViewController {
-                toVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-                toVC.modalPresentationStyle = UIModalPresentationStyle.FormSheet
-                toVC.modalInPopover = true
-                toVC.coordinate = selectedCoordinate
-            }
+    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+        if !zoomedOnFirstUserLocationUpdate {
+            let mapRegion = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            mapView.setRegion(mapRegion, animated: true)
+            zoomedOnFirstUserLocationUpdate = false
         }
     }
     
@@ -215,6 +213,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    // MARK: Segues
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == kSegueIDAddEvent {
+            if let toVC = segue.destinationViewController as? AddEventViewController {
+                toVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+                toVC.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+                toVC.modalInPopover = true
+                toVC.coordinate = selectedCoordinate
+            }
+        }
     }
 }
 
