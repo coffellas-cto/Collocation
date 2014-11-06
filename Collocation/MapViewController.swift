@@ -122,7 +122,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         println("Entered region: \(region.identifier)")
         
         if let reminder = CoreDataManager.manager.fetchObjectsWithEntityClass(Reminder.classForCoder(), predicateFormat: "regionID == %@", region.identifier)?.first as? Reminder {
-            println("Reminder: \(reminder.name)")
+            if reminder.enabled.boolValue {
+                println("Reminder: \(reminder.name)")
+            }
         }
     }
     
@@ -136,7 +138,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             //locationManager.startUpdatingLocation()
             mapView.showsUserLocation = true
         case .Denied, .Restricted:
-            UIAlertView(title: "Alert", message: "In order to get all features of application you must turn on location services for it.", delegate: nil, cancelButtonTitle: "OK").show()
+            UIAlertView(title: "Alert", message: "In order to get all features of application working you must turn on location services for it.", delegate: nil, cancelButtonTitle: "OK").show()
         default:
             break
         }
