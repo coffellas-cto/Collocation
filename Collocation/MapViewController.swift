@@ -37,6 +37,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     func reminderAdded(notificiation: NSNotification) {
+        // Check if user has already seen the permission alrt for notifications
+        if NSUserDefaults.standardUserDefaults().objectForKey(kCollocationLocalNotificationsPermissionAlertShownKey) == nil {
+            let types: UIUserNotificationType = .Alert | .Badge | .Sound
+            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+            NSUserDefaults.standardUserDefaults().setObject(true, forKey: kCollocationLocalNotificationsPermissionAlertShownKey)
+        }
+        
         println("Reminder added:")
         if let reminder = notificiation.userInfo?[kNotificationCollocationReminderAddedRiminderKey] as? Reminder {
             println("\(reminder.latitude); \(reminder.longitude)")
@@ -124,6 +131,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if let reminder = CoreDataManager.manager.fetchObjectsWithEntityClass(Reminder.classForCoder(), predicateFormat: "regionID == %@", region.identifier)?.first as? Reminder {
             if reminder.enabled.boolValue {
                 println("Reminder: \(reminder.name)")
+                
+                let alertBody = "Entered region: \(reminder.name)"
+                // Send notification if in background
+                if UIApplication.sharedApplication().applicationState != UIApplicationState.Active {
+                    let localNotification = UILocalNotification()
+                    localNotification.fireDate = NSDate()
+                    localNotification.alertBody = alertBody
+                    localNotification.soundName = UILocalNotificationDefaultSoundName
+                    localNotification.alertAction = "Show"
+                    UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                }
+                else {
+                    UIAlertView(title: "Reminder", message: alertBody, delegate: nil, cancelButtonTitle: "OK").show()
+                }
             }
         }
     }

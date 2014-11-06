@@ -15,3 +15,5 @@ let kNotificationCollocationRadiusChanged = "NotificationCollocationRadiusChange
 let kNotificationCollocationReminderCellSwitchValueChanged = "NotificationCollocationReminderCellSwitchValueChanged"
 
 let kCollocationUbiquitousContentName = "CollocationUbiquitousContentName"
+
+let kCollocationLocalNotificationsPermissionAlertShownKey = "CollocationLocalNotificationsPermissionAlertShownKey"
