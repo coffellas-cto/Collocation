@@ -49,7 +49,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         println("Reminder added:")
         if let reminder = notificiation.userInfo?[kNotificationCollocationReminderAddedRiminderKey] as? Reminder {
             println("\(reminder.latitude); \(reminder.longitude)")
-            startMonitoringRegionsWithReminders([reminder])
         }
         
         if lastAnnotation != nil {
@@ -66,12 +65,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     // MARK: Private Methods
     private func startMonitoringRegionsWithReminders(reminders: [Reminder]) {
+        let activeRegions = locationManager.monitoredRegions
+        for region in activeRegions {
+            locationManager.stopMonitoringForRegion(region as? CLRegion)
+        }
+        
         for reminder in reminders {
             var geoRegion = CLCircularRegion(center: CLLocationCoordinate2D(latitude: reminder.latitude.doubleValue, longitude: reminder.longitude.doubleValue), radius: reminder.radius.doubleValue, identifier: "\(reminder.regionID)")
             self.locationManager.startMonitoringForRegion(geoRegion)
         }
-        
-        //locationManager.startUpdatingLocation()
     }
     
     private func reloadMapView() {
