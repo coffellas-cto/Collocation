@@ -15,6 +15,20 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
     
     var fetchedResultsController: NSFetchedResultsController!
     
+    // MARK: Public Methods
+    
+    func switchValueChanged(notification: NSNotification) {
+        if let cell = notification.object as? ReminderCell {
+            if let indexPath = tableView.indexPathForCell(cell) {
+                if let reminder = fetchedResultsController.fetchedObjects?[indexPath.row] as? Reminder {
+                    reminder.enabled = NSNumber(bool: cell.switchEnabled.on)
+                    CoreDataManager.manager.saveContext()
+                }
+            }
+            
+        }
+    }
+    
     // MARK: UITableView Delegates Methods
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -22,30 +36,54 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
         
         let reminder = fetchedResultsController.fetchedObjects?[indexPath.row] as Reminder
         cell.nameLabel.text = reminder.name
-        cell.radiusLabel.text = NSString(format: "%.01f", reminder.radius.floatValue)
+        cell.radiusLabel.text = NSString(format: "%.01f m", reminder.radius.floatValue)
         cell.coordinateLabel.text = NSString(format: "%.06f; %.06f", reminder.latitude.floatValue, reminder.longitude.floatValue)
+        
+        cell.switchEnabled.on = reminder.enabled.boolValue
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println(fetchedResultsController.fetchedObjects?.count)
         return fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 56
+        return 76
     }
     
     // MARK: NSFetchedResultsControllerDelegate Methods
     
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .Update:
+            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            return
+        case .Move:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        default:
+            return
+        }
+    }
+    
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        tableView.reloadData()
+        tableView.endUpdates()
     }
     
     // MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchValueChanged:", name: kNotificationCollocationReminderCellSwitchValueChanged, object: nil)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -71,6 +109,10 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 

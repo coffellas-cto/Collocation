@@ -104,16 +104,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KJy-yv-VkJ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W2p-qD-MGL">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="Ob4-fX-Rr4"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Reminders" id="vma-Fb-XX6">
+                                        <barButtonItem key="rightBarButtonItem" title="Edit" id="IMJ-iF-Xve"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="W2p-qD-MGL" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="8gR-6x-fi9"/>
                             <constraint firstAttribute="trailing" secondItem="KJy-yv-VkJ" secondAttribute="trailing" id="9z2-nV-UMa"/>
+                            <constraint firstAttribute="trailing" secondItem="W2p-qD-MGL" secondAttribute="trailing" id="PRn-mp-85l"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="KJy-yv-VkJ" secondAttribute="bottom" id="Uze-9h-Jbp"/>
                             <constraint firstItem="KJy-yv-VkJ" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="are-iJ-HRP"/>
-                            <constraint firstItem="KJy-yv-VkJ" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="n2f-Wo-GMY"/>
+                            <constraint firstItem="KJy-yv-VkJ" firstAttribute="top" secondItem="W2p-qD-MGL" secondAttribute="bottom" id="fNZ-wX-qYx"/>
+                            <constraint firstItem="W2p-qD-MGL" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="uJV-SF-jw6"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Reminders" image="second" id="cPa-gy-q4n"/>
