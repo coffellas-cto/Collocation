@@ -15,6 +15,12 @@
 		9A195A431A0834D600F1D6FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A195A411A0834D600F1D6FE /* LaunchScreen.xib */; };
 		9A195A4F1A0834D600F1D6FE /* CollocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A195A4E1A0834D600F1D6FE /* CollocationTests.swift */; };
 		9A195A591A08354800F1D6FE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A195A581A08354800F1D6FE /* MapKit.framework */; };
+		9A31E5A01A0C3B27001D72E1 /* annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A31E59A1A0C3B27001D72E1 /* annotation.png */; };
+		9A31E5A11A0C3B27001D72E1 /* annotation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A31E59B1A0C3B27001D72E1 /* annotation@2x.png */; };
+		9A31E5A21A0C3B27001D72E1 /* annotation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A31E59C1A0C3B27001D72E1 /* annotation@3x.png */; };
+		9A31E5A31A0C3B27001D72E1 /* annotation_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A31E59D1A0C3B27001D72E1 /* annotation_add.png */; };
+		9A31E5A41A0C3B27001D72E1 /* annotation_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A31E59E1A0C3B27001D72E1 /* annotation_add@2x.png */; };
+		9A31E5A51A0C3B27001D72E1 /* annotation_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A31E59F1A0C3B27001D72E1 /* annotation_add@3x.png */; };
 		9A41199A1A0994FB00AB1C83 /* Collocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A4119981A0994FB00AB1C83 /* Collocation.xcdatamodeld */; };
 		9A41199C1A0995AB00AB1C83 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41199B1A0995AB00AB1C83 /* CoreDataManager.swift */; };
 		9A4119A11A09A09300AB1C83 /* RadiusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41199F1A09A09300AB1C83 /* RadiusCell.swift */; };
@@ -55,6 +61,12 @@
 		9A195A4D1A0834D600F1D6FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A195A4E1A0834D600F1D6FE /* CollocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollocationTests.swift; sourceTree = "<group>"; };
 		9A195A581A08354800F1D6FE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9A31E59A1A0C3B27001D72E1 /* annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = annotation.png; sourceTree = "<group>"; };
+		9A31E59B1A0C3B27001D72E1 /* annotation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "annotation@2x.png"; sourceTree = "<group>"; };
+		9A31E59C1A0C3B27001D72E1 /* annotation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "annotation@3x.png"; sourceTree = "<group>"; };
+		9A31E59D1A0C3B27001D72E1 /* annotation_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = annotation_add.png; sourceTree = "<group>"; };
+		9A31E59E1A0C3B27001D72E1 /* annotation_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "annotation_add@2x.png"; sourceTree = "<group>"; };
+		9A31E59F1A0C3B27001D72E1 /* annotation_add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "annotation_add@3x.png"; sourceTree = "<group>"; };
 		9A4119991A0994FB00AB1C83 /* Collocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Collocation.xcdatamodel; sourceTree = "<group>"; };
 		9A41199B1A0995AB00AB1C83 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9A41199F1A09A09300AB1C83 /* RadiusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusCell.swift; sourceTree = "<group>"; };
@@ -133,6 +145,7 @@
 		9A195A341A0834D600F1D6FE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9A31E5991A0C3B27001D72E1 /* images */,
 				9A195A581A08354800F1D6FE /* MapKit.framework */,
 				9A195A351A0834D600F1D6FE /* Info.plist */,
 				9A4119AB1A09AF2A00AB1C83 /* Constants.swift */,
@@ -155,6 +168,19 @@
 				9A195A4D1A0834D600F1D6FE /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9A31E5991A0C3B27001D72E1 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				9A31E59A1A0C3B27001D72E1 /* annotation.png */,
+				9A31E59B1A0C3B27001D72E1 /* annotation@2x.png */,
+				9A31E59C1A0C3B27001D72E1 /* annotation@3x.png */,
+				9A31E59D1A0C3B27001D72E1 /* annotation_add.png */,
+				9A31E59E1A0C3B27001D72E1 /* annotation_add@2x.png */,
+				9A31E59F1A0C3B27001D72E1 /* annotation_add@3x.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		9A41199D1A0995B200AB1C83 /* Controllers */ = {
@@ -289,9 +315,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A195A3E1A0834D600F1D6FE /* Main.storyboard in Resources */,
+				9A31E5A31A0C3B27001D72E1 /* annotation_add.png in Resources */,
+				9A31E5A11A0C3B27001D72E1 /* annotation@2x.png in Resources */,
 				9A4119A61A09A1FE00AB1C83 /* EventNameCell.xib in Resources */,
 				9A990FB11A0AA1E700C8ACFB /* ReminderCell.xib in Resources */,
+				9A31E5A41A0C3B27001D72E1 /* annotation_add@2x.png in Resources */,
+				9A31E5A21A0C3B27001D72E1 /* annotation@3x.png in Resources */,
+				9A31E5A51A0C3B27001D72E1 /* annotation_add@3x.png in Resources */,
 				9A195A431A0834D600F1D6FE /* LaunchScreen.xib in Resources */,
+				9A31E5A01A0C3B27001D72E1 /* annotation.png in Resources */,
 				9A195A401A0834D600F1D6FE /* Images.xcassets in Resources */,
 				9A4119A21A09A09300AB1C83 /* RadiusCell.xib in Resources */,
 				9A4119A81A09A60000AB1C83 /* NewEventFooterView.xib in Resources */,

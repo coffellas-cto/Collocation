@@ -9,7 +9,19 @@
 import UIKit
 import MapKit
 
+extension UIColor {
+    class func colorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+}
+
 let kAnnotationReuseID = "ANNOTATION_ID"
+let kAnnotationAddReuseID = "ANNOTATION_ADD_ID"
 let kSegueIDAddEvent = "SHOW_ADD_EVENT_VC"
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
@@ -90,6 +102,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             let annotation = Annotation(coordinate: coordinate)
             annotation.title = reminder.name
             annotation.isReminder = true
+            annotation.enabled = reminder.enabled.boolValue
             annotationsArray.append(annotation)
             
             let circleOverlay = MKCircle(centerCoordinate: coordinate, radius: CLLocationDistance(reminder.radius.doubleValue))
@@ -107,17 +120,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             return nil
         }
         
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(kAnnotationReuseID) as MKPinAnnotationView?
-        if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: kAnnotationReuseID)
-            annotationView?.canShowCallout = true
-        }
-        
         if let annotation = annotation as? Annotation {
-            annotationView?.rightCalloutAccessoryView = UIButton.buttonWithType(annotation.isReminder ? .InfoLight : .ContactAdd) as UIView
+            var reuseIdentifier = annotation.isReminder ? kAnnotationAddReuseID : kAnnotationReuseID
+            var imageName = annotation.isReminder ? "annotation" : "annotation_add"
+            
+            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier) as MKAnnotationView!
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                annotationView.canShowCallout = true
+                annotationView.image = UIImage(named: imageName)
+                annotationView.centerOffset = CGPointMake(0, -annotationView.frame.size.height / 2 + 4)
+            }
+            
+            annotationView.alpha = annotation.enabled ? 1 : 0.5
+            
+            annotationView.rightCalloutAccessoryView = UIButton.buttonWithType(annotation.isReminder ? .InfoLight : .ContactAdd) as UIView
+            
+            return annotationView
         }
         
-        return annotationView
+        return nil
     }
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
@@ -139,7 +161,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         let renderer = MKCircleRenderer(overlay: overlay)
-        renderer.fillColor = overlay.title? == "0" ? UIColor.blackColor().colorWithAlphaComponent(0.05) : UIColor.redColor().colorWithAlphaComponent(0.2)
+        renderer.fillColor = overlay.title? == "0" ? UIColor.blackColor().colorWithAlphaComponent(0.05) : UIColor.colorFromRGB(0x5aa33a).colorWithAlphaComponent(0.3)
         return renderer
     }
     

@@ -98,6 +98,19 @@ class AddEventViewController: UIViewController, UITableViewDelegate, UITableView
         return renderer
     }
     
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        var imageName = "annotation_add"
+        
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(imageName) as MKAnnotationView!
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: imageName)
+            annotationView.image = UIImage(named: imageName)
+            annotationView.centerOffset = CGPointMake(0, -annotationView.frame.size.height / 2 + 4)
+        }
+        
+        return annotationView
+    }
+    
     // MARK: UIScrollView Delegate Methods
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let scrollOffset = scrollView.contentOffset.y;

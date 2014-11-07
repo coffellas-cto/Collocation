@@ -14,6 +14,7 @@ class Annotation: NSObject, MKAnnotation {
     var title: String?
     var subtitle: String?
     var isReminder = false
+    var enabled = true
     
     init(coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate
