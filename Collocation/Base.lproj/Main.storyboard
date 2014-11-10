@@ -28,7 +28,7 @@
                             <constraint firstItem="me2-LD-J2F" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="bjS-Ov-cPw"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="world.png" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="mapView" destination="me2-LD-J2F" id="ast-bj-8eI"/>
                         <segue destination="IBT-2C-ej6" kind="presentation" identifier="SHOW_ADD_EVENT_VC" id="5Xz-8C-KbW"/>
@@ -134,7 +134,7 @@
                             <constraint firstItem="W2p-qD-MGL" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="uJV-SF-jw6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Reminders" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Reminders" image="list.png" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="tableView" destination="KJy-yv-VkJ" id="h7B-JR-3DI"/>
                     </connections>
@@ -164,7 +164,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="list.png" width="30" height="30"/>
+        <image name="world.png" width="30" height="30"/>
     </resources>
 </document>
