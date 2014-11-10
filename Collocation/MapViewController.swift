@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 extension UIColor {
     class func colorFromRGB(rgbValue: UInt) -> UIColor {
@@ -220,6 +221,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reminderAdded:", name: kNotificationCollocationReminderAdded, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "storageChanged", name: kNotificationCollocationStorageChanged, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadMapView", name: kNotificationCollocationMustUpdateMap, object: nil)
         
         mapView.delegate = self
         locationManager.delegate = self

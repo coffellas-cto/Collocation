@@ -14,6 +14,7 @@ let kNotificationCollocationStorageChanged = "NotificationCollocationStorageChan
 let kNotificationCollocationReminderAddedRiminderKey = "NotificationCollocationReminderAddedRiminderKey"
 let kNotificationCollocationRadiusChanged = "NotificationCollocationRadiusChanged"
 let kNotificationCollocationReminderCellSwitchValueChanged = "NotificationCollocationReminderCellSwitchValueChanged"
+let kNotificationCollocationMustUpdateMap = "kNotificationCollocationMustUpdateMap"
 
 let kCollocationUbiquitousContentName = "CollocationUbiquitousContentName"
 

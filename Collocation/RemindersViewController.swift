@@ -42,10 +42,11 @@ class RemindersViewController: UIViewController, NSFetchedResultsControllerDeleg
         }
     }
     
-    func cloudChangesReceived(notification : NSNotification)
+    func cloudChangesReceived(notification: NSNotification)
     {
+        println("cloudChangesReceived")
         CoreDataManager.manager.managedObjectContext!.mergeChangesFromContextDidSaveNotification(notification)
-        CoreDataManager.manager.saveContext()
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationCollocationMustUpdateMap, object: nil)
     }
     
     // MARK: UITableView Delegates Methods
